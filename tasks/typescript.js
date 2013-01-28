@@ -173,6 +173,28 @@ module.exports = function (grunt) {
                     //grunt.log.writeln("'declaration_file' option now obsolate. use 'declaration' option");
                 }
             }
+			if (options.comments)
+            {
+                setting.emitComments = options.comments;
+            }
+			if (options.compiler)
+            {
+                var compiler = options.compiler;
+                for (var i in compiler)
+                {
+                    if (i === 'styleSettings')
+                    {
+                        for (var s in compiler[i])
+                        {
+                            setting.styleSettings[s] = compiler[i][s];
+                        }
+                    }
+                    else
+                    {
+                        setting[i] = compiler[i];
+                    }
+                }
+            }
         }
 
         if(path.extname(destPath) === ".js"){
